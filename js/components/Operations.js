@@ -6,22 +6,17 @@ function Operation(props) {
 
     const [timeSwitch, setTimeSwitch] = useState(false);
     const [taskTime, setTaskTime] = useState(0);
-    const [operations, setOperations] = useState([]);
 
-    useEffect(()=> {
-        setOperations(myOperation);
-    }, [])
+    const setTime = (time)=> {
+        setTaskTime(time);
+    }
 
-    const handleForm = (time)=> {
-        time.preventDefault();
-        setTaskTime(time.target.elements[0].value);
-        setTimeSwitch(false);
-    };
 
 
     return (
-        <>{operations.map(operation=> {
-          return (<SingleOperation description={operation.description} timeSwitch={timeSwitch} taskTime={taskTime} onSetTime={handleForm}/> )})}
+        <>{myOperation.map(operation=> {
+          return (<SingleOperation key={operation.id} description={operation.description} timeSwitch={timeSwitch}
+           taskTime={operation.taskTime} onSetTime={setTime}/> )})}
         </>
     )
 }

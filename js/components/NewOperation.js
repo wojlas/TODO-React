@@ -9,11 +9,10 @@ export default function NewOperation(props) {
     const newOperationHandler = (e)=> {
         e.preventDefault();
         const operationData = {description: newOp,
-                                timeSpent: 0,
-                                task: taskID};
+                                timeSpent: 0};
         addOperation(taskID, operationData, (data)=> {
             onNewOperations(data);
-        })
+        });
         setOp('');
     }
 

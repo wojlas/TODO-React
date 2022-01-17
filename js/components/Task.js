@@ -19,9 +19,11 @@ function Task(props) {
       }, onTaskFinish(id))
     };
 
-    getOperations(id, (data)=> {
-      setOperations(data);
-    });
+    useEffect(()=>{  
+      getOperations(id, (data)=> {
+        setOperations(data);
+      });
+    }, []);
 
     const removeTaskHandler = ()=> {
       removeTask(id, (data)=> {
@@ -65,9 +67,9 @@ function Task(props) {
         </button>) : ''}
           </div>
         </div>
-        {addForm ? <NewOperation taksID={id} onNewOperations={newOperationHandler}/> : ''}
+        {addForm ? <NewOperation taskID={id} onNewOperations={newOperationHandler}/> : ''}
         <ul className="list-group list-group-flush">
-        <Operations taskID={id} form={addForm} status={status} myOperation={operations} />
+            <Operations taskID={id} form={addForm} status={status} myOperation={operations} />
         </ul>
         
       </section>)
