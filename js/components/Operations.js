@@ -5,7 +5,6 @@ function Operation(props) {
     const {taskID, myOperation, status, onSetTime, onRemoveOperation} = props;
 
     const [timeSwitch, setTimeSwitch] = useState(false);
-    const [taskTime, setTaskTime] = useState(0);
 
     const setTime = (id, description, time)=> {
         onSetTime(id, description, time);

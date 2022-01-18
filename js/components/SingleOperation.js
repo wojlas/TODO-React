@@ -3,10 +3,17 @@ import React, {useState, useEffect} from "react";
 export default function SingleOperation(props) {
     const {description, operationID, taskTime, onSetTime, onTimeSwitch, onRemoveOperation} = props;
     const [timeSwitch, setTimeSwitch] = useState(false);
+    const [operationTime, setOperationTime] = useState(null);
+
+    useEffect(()=> {
+      setOperationTime(taskTime);
+    }, [])
 
     const taskTimeHandler = (e)=> {
       e.preventDefault();
       onSetTime(operationID, description, e.target.elements[0].value);
+      setOperationTime(e.target.elements[0].value);
+      setTimeSwitch(false);
     }
 
     const removeOperation = ()=> {
@@ -17,8 +24,8 @@ export default function SingleOperation(props) {
         <li className="list-group-item d-flex justify-content-between align-items-center">
             <div>
               {description}
-              {taskTime > 0 ? (<span className="badge badge-success badge-pill ml-2">
-                {taskTime}min
+              {operationTime > 0 ? (<span className="badge badge-success badge-pill ml-2">
+                {operationTime}min
               </span>) : ''}
             </div>
     

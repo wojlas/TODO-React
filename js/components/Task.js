@@ -45,6 +45,7 @@ function Task(props) {
         }
         return operation;
       })
+      
       setOperations(operationsCopy);
       const operationBody = {description: description,
                             timeSpent: time};
