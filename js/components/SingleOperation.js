@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
 
 export default function SingleOperation(props) {
-    const {description, taskTime, onSetTime, onTimeSwitch} = props;
+    const {description, operationID, taskTime, onSetTime, onTimeSwitch} = props;
     const [timeSwitch, setTimeSwitch] = useState(false);
 
     const taskTimeHandler = (e)=> {
       e.preventDefault();
-      onSetTime(e.target.elements[0].value);
+      onSetTime(operationID, description, e.target.elements[0].value);
     }
 
     return (

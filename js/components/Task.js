@@ -4,12 +4,20 @@ import NewOperation from "./NewOperation";
 import {finishTask} from '../api/finish_task';
 import {getOperations} from '../api/operations';
 import {removeTask} from '../api/remove_task';
+import { updateOperation } from '../api/update_operations';
+import { getTasks } from "../api/tasks";
 
 function Task(props) {
   const [addForm, setAddForm] = useState(false);
   const [operations, setOperations] = useState([]);
 
-    const {id, title, description, status, onTaskFinish, onTaskRemove} = props.task;
+    const {id, title, description, status, onTaskFinish, onTaskRemove, onTaskUpdate} = props.task;
+    
+    useEffect(()=>{  
+      getOperations(id, (data)=> {
+        setOperations(data);
+      });
+    }, []);
 
     const finishTaskHandler = ()=> {
       finishTask(id, {
@@ -18,12 +26,6 @@ function Task(props) {
         status: "closed"
       }, onTaskFinish(id))
     };
-
-    useEffect(()=>{  
-      getOperations(id, (data)=> {
-        setOperations(data);
-      });
-    }, []);
 
     const removeTaskHandler = ()=> {
       removeTask(id, (data)=> {
@@ -34,6 +36,15 @@ function Task(props) {
     const newOperationHandler = (data)=> {
       setOperations(prevState=> [...prevState, data]);
       setAddForm(false)
+    }
+
+    const taskOperationUpdate = (opID, description, time)=> {
+      const operationBody = {description: description,
+                            timeSpent: time};
+      updateOperation(opID, operationBody);
+      getOperations(id, (data)=> {
+        setOperations(data);
+      });
     }
 
     return (
@@ -69,7 +80,7 @@ function Task(props) {
         </div>
         {addForm ? <NewOperation taskID={id} onNewOperations={newOperationHandler}/> : ''}
         <ul className="list-group list-group-flush">
-            <Operations taskID={id} form={addForm} status={status} myOperation={operations} />
+            <Operations taskID={id} form={addForm} status={status} myOperation={operations} onSetTime={taskOperationUpdate}/>
         </ul>
         
       </section>)

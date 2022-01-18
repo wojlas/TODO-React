@@ -38,11 +38,13 @@ function App() {
         setTasks(tasksCopy);
     }
 
+
     return (
         <>
             <NewTask onNewTask={handleTask}/>
             {tasks.map(task=> {
-                return <Task key={task.id ? task.id : i++} task={task} onTaskFinish={finishTask} onTaskRemove={removeTask}/>
+                return <Task key={task.id ? task.id : i++} task={task}
+                 onTaskFinish={finishTask} onTaskRemove={removeTask}/>
             })}
         </>
     )
