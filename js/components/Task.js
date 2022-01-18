@@ -5,7 +5,7 @@ import {finishTask} from '../api/finish_task';
 import {getOperations} from '../api/operations';
 import {removeTask} from '../api/remove_task';
 import { updateOperation } from '../api/update_operations';
-import { getTasks } from "../api/tasks";
+import { removeOperation } from '../api/remove_operation';
 
 function Task(props) {
   const [addForm, setAddForm] = useState(false);
@@ -39,12 +39,22 @@ function Task(props) {
     }
 
     const taskOperationUpdate = (opID, description, time)=> {
+      const operationsCopy = [...operations].map(operation=> {
+        if (operation.id === opID) {
+          operation.timeSpent === time;
+        }
+        return operation;
+      })
+      setOperations(operationsCopy);
       const operationBody = {description: description,
                             timeSpent: time};
       updateOperation(opID, operationBody);
-      getOperations(id, (data)=> {
-        setOperations(data);
-      });
+    }
+
+    const taskOperationRemove = (id)=> {
+      const operationsCopy = [...operations].filter(operation=> operation.id !== id);
+      setOperations(operationsCopy);
+      removeOperation(id);
     }
 
     return (
@@ -80,7 +90,8 @@ function Task(props) {
         </div>
         {addForm ? <NewOperation taskID={id} onNewOperations={newOperationHandler}/> : ''}
         <ul className="list-group list-group-flush">
-            <Operations taskID={id} form={addForm} status={status} myOperation={operations} onSetTime={taskOperationUpdate}/>
+            <Operations taskID={id} form={addForm} status={status} myOperation={operations} 
+            onSetTime={taskOperationUpdate} onRemoveOperation={taskOperationRemove}/>
         </ul>
         
       </section>)

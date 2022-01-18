@@ -1,12 +1,16 @@
 import React, {useState, useEffect} from "react";
 
 export default function SingleOperation(props) {
-    const {description, operationID, taskTime, onSetTime, onTimeSwitch} = props;
+    const {description, operationID, taskTime, onSetTime, onTimeSwitch, onRemoveOperation} = props;
     const [timeSwitch, setTimeSwitch] = useState(false);
 
     const taskTimeHandler = (e)=> {
       e.preventDefault();
       onSetTime(operationID, description, e.target.elements[0].value);
+    }
+
+    const removeOperation = ()=> {
+      onRemoveOperation(operationID);
     }
 
     return (
@@ -26,7 +30,7 @@ export default function SingleOperation(props) {
                 <i className="fas fa-clock ml-1"></i>
               </button>
     
-              <button className="btn btn-outline-danger btn-sm"><i className="fas fa-trash"></i></button>
+              <button className="btn btn-outline-danger btn-sm" onClick={()=>removeOperation()}><i className="fas fa-trash"></i></button>
             </div>) : (
                 <form onSubmit={taskTimeHandler}>
                 <div className="input-group input-group-sm">
