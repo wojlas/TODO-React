@@ -11,7 +11,7 @@ function Task(props) {
   const [addForm, setAddForm] = useState(false);
   const [operations, setOperations] = useState([]);
 
-    const {id, title, description, status, onTaskFinish, onTaskRemove, onTaskUpdate} = props.task;
+    const {id, title, description, status, onTaskFinish, onTaskRemove} = props.task;
     
     useEffect(()=>{  
       getOperations(id, (data)=> {
@@ -24,13 +24,11 @@ function Task(props) {
         title: title,
         description: description,
         status: "closed"
-      }, onTaskFinish(id))
+      },()=> onTaskFinish(id))
     };
 
     const removeTaskHandler = ()=> {
-      removeTask(id, (data)=> {
-        ()=> onTaskRemove(id);
-      })
+      removeTask(id, ()=> onTaskRemove(id));
     };
 
     const newOperationHandler = (data)=> {
@@ -45,7 +43,7 @@ function Task(props) {
         }
         return operation;
       })
-      
+
       setOperations(operationsCopy);
       const operationBody = {description: description,
                             timeSpent: time};
@@ -84,7 +82,7 @@ function Task(props) {
             </button> 
             </>) : ''}
             {operations.length === 0 ? (<button className="btn btn-outline-danger btn-sm ml-2" 
-            onClick={removeTaskHandler}>
+            onClick={()=> removeTaskHandler()}>
           <i className="fas fa-trash false"></i>
         </button>) : ''}
           </div>
