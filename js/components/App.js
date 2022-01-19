@@ -6,6 +6,8 @@ import { finishTask } from "../api/finish_task";
 
 let i = 0;
 
+
+// Component rendering existing tasks and form to enter a new task  
 function App() {
     const [tasks, setTasks] = useState([]);
 

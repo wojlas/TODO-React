@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {addTask} from '../api/new_task'
 
+// Component render form to add new task 
 function NewTask(props) {
     const [task, setTask] = useState({title: '', description: '', status: 'open'});
 

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import SingleOperation from './SingleOperation';
 
+// Component render opderations in each task. Data is sending in props 
 function Operation(props) {
     const {taskID, myOperation, status, onSetTime, onRemoveOperation} = props;
 

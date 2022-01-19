@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
 
+
+// Component render single operation
 export default function SingleOperation(props) {
     const {description, operationID, taskTime, onSetTime, onTimeSwitch, onRemoveOperation} = props;
     const [timeSwitch, setTimeSwitch] = useState(false);

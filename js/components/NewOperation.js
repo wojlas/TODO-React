@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {addOperation} from '../api/new_operation';
 
+// Component render form to add operation into task 
 export default function NewOperation(props) {
     const {taskID, onNewOperations} = props;
 

@@ -7,6 +7,9 @@ import {removeTask} from '../api/remove_task';
 import { updateOperation } from '../api/update_operations';
 import { removeOperation } from '../api/remove_operation';
 
+
+// Component render single task based on data recived in props.
+// Each task can have subtasks called operations.
 function Task(props) {
   const [addForm, setAddForm] = useState(false);
   const [operations, setOperations] = useState([]);
